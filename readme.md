@@ -69,11 +69,11 @@ PMF是指预训练-元学习-微调的pipeline，是小样本学习的经典方�
 
 孪生网络训练完毕后，在目标域的Support Set上进行微调。在fc层后增加一个分类器层，输出维度为31维，其核心是一个128-to-31的变换矩阵。将Support Set的所有数据通过backbone映射为128维特征向量后，以类别计算特征向量的均值，并将结果拼接成维的矩阵，作为分类器变换矩阵的初始值。分类器bias的初始值全部设置为0。Support Set的数据经过整个网络后得到31维向量，与真实标签（31维one-hot向量）进行交叉熵计算得到分类损失，使用梯度下降法更新网络权重。
 
-### Self-distillation and MixUp
+### Self-Distillation and MixUp
 
 基于自蒸馏和混合的有监督域自适应模型结构如下图所示。模型训练分为两阶段：源域上预训练和目标域上微调。
 
-![T&S_algorithm](image/T&S_algorithm.png)
+![SDM](image/SDM_pipeline.png)
 
 对源域中图片，分别进行弱增强（随机裁剪，随机翻转）和强增强（与SimCLR相似，包括随机颜色变化，高斯模糊等）。分别将弱增强后图片送入Teacher模型，强增强后图片送入Student模型得到中间向量和结果向量，计算Student模型分类损失和Teacher与Student模型对齐损失，通过可变参数调节两个损失所占比重，以更好地训练模型。通过梯度更新Student模型，指数移动平均更新Teacher模型。
 
