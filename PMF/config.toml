@@ -1,0 +1,18 @@
+device = 'cuda'
+checkpoint = "..\\checkpoint" # test1.pth
+predict_check = "..\\checkpoint" # test1_p.pth
+
+[dataset.office31]
+root = "..\\data\\office31"
+post = 'images'
+
+[emb]
+batch_size = 128
+epoch = 15
+lr = 5e-4
+
+[predict]
+regulation = true
+epoch = 80
+lr = 5e-4
+batch_size = 3
