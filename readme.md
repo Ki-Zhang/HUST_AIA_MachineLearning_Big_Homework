@@ -61,7 +61,7 @@ PMF是指预训练-元学习-微调的pipeline，是小样本学习的经典方�
 
 在孪生网络训练阶段，模型从源域中提取包括锚点、正样本和负样本的一组数据，输入backbone得到三者的特征向量。之后将锚点分别与基于孪生网络的PMF模型结构如下图所示。
 
-![PMF_algorithm](image/PMF_algorithm.png)
+![PMF_algorithm](image/PMF_pipeline.png)
 
 模型pipeline为典型的pretrain-finetune结构。P（预训练）阶段由预训练模型ResNet-50代替，并将fc层的输出维度修改为128维。这样数据经过预训练backbone后，映射成为128维特征向量。为了不破坏预训练模型已经提取出的视觉特征，将backbone其余部分的权重冻结，此后所有训练只更新fc层及后续部分的模型。
 
